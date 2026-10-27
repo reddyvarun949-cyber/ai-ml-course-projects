@@ -1,0 +1,1026 @@
+[
+ {
+  "chunk_id": "01_python_basics.md#0",
+  "doc_id": "01_python_basics.md",
+  "title": "Python Basics for Data Science",
+  "topic": "Python & Data",
+  "heading": "Why Python",
+  "text": "Python is the most common language for data science and machine learning. Its syntax is short and readable, and it has a huge set of free libraries: NumPy for arrays, pandas for tables, Matplotlib for charts and scikit-learn for machine learning. You can run Python in a terminal, in a script file, or in a Jupyter notebook where code and explanations sit side by side."
+ },
+ {
+  "chunk_id": "01_python_basics.md#1",
+  "doc_id": "01_python_basics.md",
+  "title": "Python Basics for Data Science",
+  "topic": "Python & Data",
+  "heading": "Variables and data types",
+  "text": "A variable is a name that points to a value. You do not declare the type; Python works it out. The basic types are integers (`7`), floats (`3.14`), strings (`\"hello\"`) and booleans (`True` / `False`). Use `type(x)` to check what a value is. Converting between types is common when reading data: `int(\"42\")` turns text into a number, and `str(42)` turns a number into text."
+ },
+ {
+  "chunk_id": "01_python_basics.md#2",
+  "doc_id": "01_python_basics.md",
+  "title": "Python Basics for Data Science",
+  "topic": "Python & Data",
+  "heading": "Lists and dictionaries",
+  "text": "A list holds an ordered collection: `scores = [72, 88, 95]`. You can index it (`scores[0]`), slice it (`scores[1:]`) and add items with `append`. A dictionary stores key-value pairs: `student = {\"name\": \"Asha\", \"age\": 21}`. Dictionaries are everywhere in real projects because JSON data from web APIs and language models arrives as nested dictionaries and lists."
+ },
+ {
+  "chunk_id": "01_python_basics.md#3",
+  "doc_id": "01_python_basics.md",
+  "title": "Python Basics for Data Science",
+  "topic": "Python & Data",
+  "heading": "Loops, conditions and comprehensions",
+  "text": "A `for` loop repeats code for each item, and `if` / `elif` / `else` chooses what to run. A list comprehension builds a new list in one line: `squares = [n * n for n in range(5)]`. Comprehensions are shorter than loops, but keep them simple; if a comprehension needs two conditions and a nested loop, a normal loop is easier to read."
+ },
+ {
+  "chunk_id": "01_python_basics.md#4",
+  "doc_id": "01_python_basics.md",
+  "title": "Python Basics for Data Science",
+  "topic": "Python & Data",
+  "heading": "Functions",
+  "text": "A function packages code you want to reuse. Define it with `def`, give it parameters and return a result: ```python def average(numbers): return sum(numbers) / len(numbers) ``` Good functions do one job, have a clear name and include a short docstring explaining what they expect and return."
+ },
+ {
+  "chunk_id": "01_python_basics.md#5",
+  "doc_id": "01_python_basics.md",
+  "title": "Python Basics for Data Science",
+  "topic": "Python & Data",
+  "heading": "Handling errors",
+  "text": "When something goes wrong Python raises an exception, for example `ValueError` or `FileNotFoundError`. Wrap risky code in `try` / `except` so your program can show a friendly message instead of crashing. Do not hide every error with a bare `except:`; catch the specific exception you expect."
+ },
+ {
+  "chunk_id": "01_python_basics.md#6",
+  "doc_id": "01_python_basics.md",
+  "title": "Python Basics for Data Science",
+  "topic": "Python & Data",
+  "heading": "Files and JSON",
+  "text": "Open files with `with open(\"data.txt\") as f:` so the file is closed automatically. The `json` module converts between Python dictionaries and JSON text: `json.load` reads a file and `json.dumps` turns a dictionary into a string."
+ },
+ {
+  "chunk_id": "02_pandas_dataframes.md#0",
+  "doc_id": "02_pandas_dataframes.md",
+  "title": "Working with Tables in pandas",
+  "topic": "Python & Data",
+  "heading": "What a DataFrame is",
+  "text": "pandas is the standard Python library for tabular data. A DataFrame is a table with named columns and an index for the rows, much like a spreadsheet you control with code. Each column is a Series, and every value in a column usually has the same type. You will use pandas to load, inspect, clean and summarise almost every dataset in this course."
+ },
+ {
+  "chunk_id": "02_pandas_dataframes.md#1",
+  "doc_id": "02_pandas_dataframes.md",
+  "title": "Working with Tables in pandas",
+  "topic": "Python & Data",
+  "heading": "Loading and inspecting data",
+  "text": "Read a CSV file with `df = pd.read_csv(\"file.csv\")`. Then look before you analyse: `df.head()` shows the first rows, `df.shape` gives the number of rows and columns, `df.info()` lists the column types and how many values are present, and `df.describe()` summarises the numeric columns with count, mean, standard deviation, minimum and maximum."
+ },
+ {
+  "chunk_id": "02_pandas_dataframes.md#2",
+  "doc_id": "02_pandas_dataframes.md",
+  "title": "Working with Tables in pandas",
+  "topic": "Python & Data",
+  "heading": "Selecting and filtering",
+  "text": "Pick one column with `df[\"price\"]` and several with `df[[\"price\", \"city\"]]`. Filter rows with a condition: `df[df[\"price\"] > 100]`. Combine conditions with `&` (and) and `|` (or), putting each condition in brackets. Use `df.loc[rows, columns]` to select by labels and `df.iloc[rows, columns]` to select by position."
+ },
+ {
+  "chunk_id": "02_pandas_dataframes.md#3",
+  "doc_id": "02_pandas_dataframes.md",
+  "title": "Working with Tables in pandas",
+  "topic": "Python & Data",
+  "heading": "Missing values and duplicates",
+  "text": "Real data has gaps. `df.isna().sum()` counts the missing values in each column. You can drop rows with `dropna`, or fill gaps with `fillna`, for example with the median. Duplicate rows are found with `df.duplicated()` and removed with `drop_duplicates`. Always write down how many rows you removed and why, so others can check your work."
+ },
+ {
+  "chunk_id": "02_pandas_dataframes.md#4",
+  "doc_id": "02_pandas_dataframes.md",
+  "title": "Working with Tables in pandas",
+  "topic": "Python & Data",
+  "heading": "Grouping and aggregating",
+  "text": "`groupby` splits the table into groups, applies a calculation to each group and combines the results. For example, `df.groupby(\"city\")[\"price\"].mean()` gives the average price per city. You can ask for several statistics at once with `agg`, such as count, mean and maximum. This split-apply-combine pattern answers most \"per category\" questions."
+ },
+ {
+  "chunk_id": "02_pandas_dataframes.md#5",
+  "doc_id": "02_pandas_dataframes.md",
+  "title": "Working with Tables in pandas",
+  "topic": "Python & Data",
+  "heading": "Combining tables",
+  "text": "`pd.merge(orders, customers, on=\"customer_id\")` joins two tables on a shared key column, like a SQL join. Choose `how=\"left\"` to keep every row from the first table even when there is no match. `pd.concat` stacks tables on top of each other when they have the same columns."
+ },
+ {
+  "chunk_id": "02_pandas_dataframes.md#6",
+  "doc_id": "02_pandas_dataframes.md",
+  "title": "Working with Tables in pandas",
+  "topic": "Python & Data",
+  "heading": "Creating new columns",
+  "text": "New columns are often calculated from existing ones: `df[\"price_per_sqft\"] = df[\"price\"] / df[\"area\"]`. Vectorised operations like this work on the whole column at once and are much faster than looping over rows."
+ },
+ {
+  "chunk_id": "03_data_visualization.md#0",
+  "doc_id": "03_data_visualization.md",
+  "title": "Data Visualization",
+  "topic": "Python & Data",
+  "heading": "Why plot your data",
+  "text": "A chart can show in seconds what a table of numbers hides: a skewed distribution, an outlier, a trend over time or two groups that behave differently. Plotting is part of exploratory data analysis (EDA), the step where you get to know the data before building any model."
+ },
+ {
+  "chunk_id": "03_data_visualization.md#1",
+  "doc_id": "03_data_visualization.md",
+  "title": "Data Visualization",
+  "topic": "Python & Data",
+  "heading": "Choosing the right chart",
+  "text": "- **Histogram:** the distribution of one numeric column. Shows skew, gaps and unusual values. - **Box plot:** compares a numeric column across categories and marks outliers as dots beyond the whiskers. - **Scatter plot:** the relationship between two numeric columns, for example area and price. - **Line chart:** how a value changes over time. - **Bar chart:** counts or averages per category. - **Heatmap:** a grid of colours, often used to show the correlation between every pair of numeric columns."
+ },
+ {
+  "chunk_id": "03_data_visualization.md#2",
+  "doc_id": "03_data_visualization.md",
+  "title": "Data Visualization",
+  "topic": "Python & Data",
+  "heading": "Matplotlib and seaborn",
+  "text": "Matplotlib is the base plotting library in Python. You create a figure, draw on its axes and add a title and axis labels. Seaborn is built on Matplotlib and makes statistical charts with one line, for example `sns.histplot(df[\"price\"])` or `sns.boxplot(data=df, x=\"city\", y=\"price\")`. Seaborn also adds colour by category with the `hue` argument."
+ },
+ {
+  "chunk_id": "03_data_visualization.md#3",
+  "doc_id": "03_data_visualization.md",
+  "title": "Data Visualization",
+  "topic": "Python & Data",
+  "heading": "Making charts readable",
+  "text": "Every chart needs a clear title, labelled axes with units, and a sensible scale. Avoid 3D effects and too many colours. If labels overlap, rotate them or make the figure wider. Sort bars by value so the reader can compare them quickly. Use colour to highlight one important group rather than to decorate."
+ },
+ {
+  "chunk_id": "03_data_visualization.md#4",
+  "doc_id": "03_data_visualization.md",
+  "title": "Data Visualization",
+  "topic": "Python & Data",
+  "heading": "Reading a chart honestly",
+  "text": "Check the axis range before drawing conclusions: a bar chart whose y-axis does not start at zero can make a small difference look huge. Remember that a pattern in a scatter plot shows correlation, not cause. With very many points, use transparency (`alpha`) so dense areas are visible."
+ },
+ {
+  "chunk_id": "03_data_visualization.md#5",
+  "doc_id": "03_data_visualization.md",
+  "title": "Data Visualization",
+  "topic": "Python & Data",
+  "heading": "Quick tip",
+  "text": "Call `plt.tight_layout()` before showing a figure so titles and labels do not overlap."
+ },
+ {
+  "chunk_id": "04_statistics_basics.md#0",
+  "doc_id": "04_statistics_basics.md",
+  "title": "Statistics Basics for Machine Learning",
+  "topic": "Statistics",
+  "heading": "Describing data",
+  "text": "The **mean** is the average, and the **median** is the middle value when the data is sorted. The median is not pulled around by extreme values, so it is the better summary for skewed data such as salaries or house prices. The **mode** is the most frequent value. **Variance** and **standard deviation** measure how spread out the values are around the mean; a small standard deviation means the values sit close together."
+ },
+ {
+  "chunk_id": "04_statistics_basics.md#1",
+  "doc_id": "04_statistics_basics.md",
+  "title": "Statistics Basics for Machine Learning",
+  "topic": "Statistics",
+  "heading": "Distributions",
+  "text": "A distribution describes how often each value appears. The **normal distribution** is the symmetric bell curve: about 68% of values lie within one standard deviation of the mean and about 95% within two. Many real measurements are not normal; incomes and waiting times are often right-skewed with a long tail of large values."
+ },
+ {
+  "chunk_id": "04_statistics_basics.md#2",
+  "doc_id": "04_statistics_basics.md",
+  "title": "Statistics Basics for Machine Learning",
+  "topic": "Statistics",
+  "heading": "Sampling and the central limit theorem",
+  "text": "We usually study a sample instead of the whole population. The central limit theorem says that the average of many random samples follows an approximately normal distribution even when the original data is not normal. This is why confidence intervals and many statistical tests work in practice."
+ },
+ {
+  "chunk_id": "04_statistics_basics.md#3",
+  "doc_id": "04_statistics_basics.md",
+  "title": "Statistics Basics for Machine Learning",
+  "topic": "Statistics",
+  "heading": "Correlation",
+  "text": "Correlation measures how strongly two numeric variables move together, from -1 (perfect opposite movement) through 0 (no linear relationship) to +1 (perfect same-direction movement). Correlation does not prove causation: ice-cream sales and drowning accidents rise together because both increase in hot weather, not because one causes the other."
+ },
+ {
+  "chunk_id": "04_statistics_basics.md#4",
+  "doc_id": "04_statistics_basics.md",
+  "title": "Statistics Basics for Machine Learning",
+  "topic": "Statistics",
+  "heading": "Hypothesis testing in plain words",
+  "text": "A hypothesis test asks whether a difference we see could easily be due to random chance. We start from the null hypothesis (\"there is no real difference\") and compute a **p-value**: the probability of seeing a result at least this extreme if the null hypothesis were true. A small p-value, commonly below 0.05, suggests the difference is unlikely to be pure chance. A/B tests on websites use exactly this idea to compare two versions of a page."
+ },
+ {
+  "chunk_id": "04_statistics_basics.md#5",
+  "doc_id": "04_statistics_basics.md",
+  "title": "Statistics Basics for Machine Learning",
+  "topic": "Statistics",
+  "heading": "Why this matters for ML",
+  "text": "Statistics helps you understand your data before modelling, choose sensible baselines, notice outliers and judge whether one model is truly better than another or only lucky on one test split."
+ },
+ {
+  "chunk_id": "05_data_preprocessing.md#0",
+  "doc_id": "05_data_preprocessing.md",
+  "title": "Data Preprocessing",
+  "topic": "Machine Learning",
+  "heading": "Why preprocessing is needed",
+  "text": "Most machine learning algorithms need clean numeric input. Raw data contains missing values, text categories, values on very different scales and mistakes. Preprocessing turns raw data into a form the model can learn from, and it often matters more for the final result than the choice of algorithm."
+ },
+ {
+  "chunk_id": "05_data_preprocessing.md#1",
+  "doc_id": "05_data_preprocessing.md",
+  "title": "Data Preprocessing",
+  "topic": "Machine Learning",
+  "heading": "Handling missing values",
+  "text": "You can drop rows with missing values when there are only a few, but dropping too many throws information away. The usual alternative is **imputation**: fill gaps with the median for numeric columns or the most frequent value for categories. scikit-learn's `SimpleImputer` does this. Sometimes the fact that a value is missing is itself useful, so you can add a yes/no indicator column."
+ },
+ {
+  "chunk_id": "05_data_preprocessing.md#2",
+  "doc_id": "05_data_preprocessing.md",
+  "title": "Data Preprocessing",
+  "topic": "Machine Learning",
+  "heading": "Encoding categories",
+  "text": "Models cannot multiply the word \"Delhi\". **One-hot encoding** creates one 0/1 column per category, so \"city\" becomes \"city_Delhi\", \"city_Mumbai\" and so on. **Ordinal encoding** maps ordered categories such as small < medium < large to 0, 1, 2. Set `handle_unknown=\"ignore\"` on the one-hot encoder so a category that appears only at prediction time does not crash the model."
+ },
+ {
+  "chunk_id": "05_data_preprocessing.md#3",
+  "doc_id": "05_data_preprocessing.md",
+  "title": "Data Preprocessing",
+  "topic": "Machine Learning",
+  "heading": "Scaling numeric features",
+  "text": "Features measured in very different units, such as age in years and income in rupees, can confuse distance-based models like k-nearest neighbours and models trained with gradient descent. **Standardisation** (`StandardScaler`) rescales each column to mean 0 and standard deviation 1. **Min-max scaling** squeezes values into the range 0 to 1. Tree-based models such as random forests do not need scaling."
+ },
+ {
+  "chunk_id": "05_data_preprocessing.md#4",
+  "doc_id": "05_data_preprocessing.md",
+  "title": "Data Preprocessing",
+  "topic": "Machine Learning",
+  "heading": "Avoiding data leakage",
+  "text": "Leakage happens when information from the test set sneaks into training, which makes results look better than they will be in real use. The classic mistake is computing the median or the scaler's mean on the full dataset before splitting. Always split first, then learn preprocessing statistics from the training data only."
+ },
+ {
+  "chunk_id": "05_data_preprocessing.md#5",
+  "doc_id": "05_data_preprocessing.md",
+  "title": "Data Preprocessing",
+  "topic": "Machine Learning",
+  "heading": "Pipelines",
+  "text": "A scikit-learn `Pipeline` chains preprocessing steps and the model into one object. Combined with a `ColumnTransformer` it applies different steps to numeric and categorical columns. Pipelines prevent leakage during cross-validation and make deployment simpler, because you save and load one object that does everything."
+ },
+ {
+  "chunk_id": "06_feature_engineering.md#0",
+  "doc_id": "06_feature_engineering.md",
+  "title": "Feature Engineering",
+  "topic": "Machine Learning",
+  "heading": "What a feature is",
+  "text": "A feature is an input column the model uses to make a prediction. Feature engineering means creating new, more useful inputs from the raw data using your knowledge of the problem. A good feature can improve a simple model more than switching to a complex algorithm."
+ },
+ {
+  "chunk_id": "06_feature_engineering.md#1",
+  "doc_id": "06_feature_engineering.md",
+  "title": "Feature Engineering",
+  "topic": "Machine Learning",
+  "heading": "Creating features from numbers",
+  "text": "Ratios and differences often carry the real signal: price per square foot, debt-to-income ratio, or the number of days between two dates. Binning turns a number into ranges, for example age groups, which can help when the relationship is not a straight line. A **log transform** compresses large values and makes right-skewed columns such as income easier for linear models."
+ },
+ {
+  "chunk_id": "06_feature_engineering.md#2",
+  "doc_id": "06_feature_engineering.md",
+  "title": "Feature Engineering",
+  "topic": "Machine Learning",
+  "heading": "Features from dates and text",
+  "text": "A date column can produce the day of the week, the month, whether it is a holiday and how long ago an event happened. Text columns can produce simple counts (length, number of words) or full vector representations such as TF-IDF, which you will meet in the NLP notes."
+ },
+ {
+  "chunk_id": "06_feature_engineering.md#3",
+  "doc_id": "06_feature_engineering.md",
+  "title": "Feature Engineering",
+  "topic": "Machine Learning",
+  "heading": "Interaction features",
+  "text": "Sometimes two features matter together: a large house in an expensive area is worth more than the sum of the separate effects suggests. Multiplying two columns creates an interaction feature. Polynomial features add squares and products automatically, but they multiply the number of columns quickly, so use them carefully."
+ },
+ {
+  "chunk_id": "06_feature_engineering.md#4",
+  "doc_id": "06_feature_engineering.md",
+  "title": "Feature Engineering",
+  "topic": "Machine Learning",
+  "heading": "Feature selection",
+  "text": "More features are not always better. Irrelevant columns add noise, slow down training and increase the risk that the model learns accidental patterns. You can remove columns with almost no variation, check which features the model relies on with permutation importance, or use regularised models that shrink unhelpful weights."
+ },
+ {
+  "chunk_id": "06_feature_engineering.md#5",
+  "doc_id": "06_feature_engineering.md",
+  "title": "Feature Engineering",
+  "topic": "Machine Learning",
+  "heading": "Domain knowledge first",
+  "text": "Talk to people who understand the data. A bank analyst knows which ratios predict loan default; a doctor knows which lab values belong together. Write down why each engineered feature should help, and then check with validation scores whether it really does. Never build a feature from information that would not be available at prediction time, such as a column that is only filled in after the outcome is known."
+ },
+ {
+  "chunk_id": "07_linear_regression.md#0",
+  "doc_id": "07_linear_regression.md",
+  "title": "Linear Regression",
+  "topic": "Machine Learning",
+  "heading": "The idea",
+  "text": "Regression predicts a number, such as a house price or tomorrow's temperature. Linear regression assumes the target is roughly a weighted sum of the inputs plus a constant: price = w1 x area + w2 x bedrooms + b. Training finds the weights that make the predictions as close as possible to the true values on the training data."
+ },
+ {
+  "chunk_id": "07_linear_regression.md#1",
+  "doc_id": "07_linear_regression.md",
+  "title": "Linear Regression",
+  "topic": "Machine Learning",
+  "heading": "How the weights are found",
+  "text": "The usual goal is to minimise the **mean squared error**: the average of the squared differences between predicted and actual values. Squaring makes all errors positive and punishes big mistakes more. For linear regression there is a direct formula for the best weights, but the same goal can also be reached step by step with gradient descent, which is how neural networks are trained."
+ },
+ {
+  "chunk_id": "07_linear_regression.md#2",
+  "doc_id": "07_linear_regression.md",
+  "title": "Linear Regression",
+  "topic": "Machine Learning",
+  "heading": "Reading the coefficients",
+  "text": "Each weight says how much the prediction changes when that feature increases by one unit and the others stay the same. A positive weight means the target goes up with the feature. Coefficients are only comparable with each other when the features are on the same scale, which is another reason to standardise."
+ },
+ {
+  "chunk_id": "07_linear_regression.md#3",
+  "doc_id": "07_linear_regression.md",
+  "title": "Linear Regression",
+  "topic": "Machine Learning",
+  "heading": "Evaluating a regression model",
+  "text": "- **MAE (mean absolute error):** the average size of the error in the target's own units. Easy to explain. - **RMSE (root mean squared error):** like MAE but larger when there are some big mistakes. - **R squared:** the share of the variation in the target that the model explains; 1 is perfect and 0 means no better than always predicting the average. Always compare against a baseline that predicts the mean of the training targets."
+ },
+ {
+  "chunk_id": "07_linear_regression.md#4",
+  "doc_id": "07_linear_regression.md",
+  "title": "Linear Regression",
+  "topic": "Machine Learning",
+  "heading": "Checking assumptions with residuals",
+  "text": "A residual is actual minus predicted. Plot residuals against predictions: they should look like random noise around zero. A curved pattern means the relationship is not linear, and a funnel shape means the errors grow with the size of the target, which a log transform of the target can often fix."
+ },
+ {
+  "chunk_id": "07_linear_regression.md#5",
+  "doc_id": "07_linear_regression.md",
+  "title": "Linear Regression",
+  "topic": "Machine Learning",
+  "heading": "When to use something else",
+  "text": "If the relationship is strongly non-linear or has many interactions, tree-based models such as random forests or gradient boosting usually predict better, at the cost of being harder to explain."
+ },
+ {
+  "chunk_id": "08_classification_metrics.md#0",
+  "doc_id": "08_classification_metrics.md",
+  "title": "Classification Metrics",
+  "topic": "Machine Learning",
+  "heading": "Why accuracy is not enough",
+  "text": "Classification predicts a category, such as spam or not spam. **Accuracy** is the share of correct predictions, but it can be badly misleading when one class is rare. If only 2% of transactions are fraud, a model that always says \"not fraud\" scores 98% accuracy and catches nothing."
+ },
+ {
+  "chunk_id": "08_classification_metrics.md#1",
+  "doc_id": "08_classification_metrics.md",
+  "title": "Classification Metrics",
+  "topic": "Machine Learning",
+  "heading": "The confusion matrix",
+  "text": "A confusion matrix counts four outcomes for a yes/no problem: - **True positives:** real positives the model found. - **False positives:** negatives the model wrongly flagged (a false alarm). - **False negatives:** positives the model missed. - **True negatives:** negatives correctly left alone. Every other metric is calculated from these four numbers."
+ },
+ {
+  "chunk_id": "08_classification_metrics.md#2",
+  "doc_id": "08_classification_metrics.md",
+  "title": "Classification Metrics",
+  "topic": "Machine Learning",
+  "heading": "Precision and recall",
+  "text": "**Precision** answers: of everything the model flagged, how much was really positive? **Recall** answers: of all the real positives, how many did the model catch? A spam filter needs high precision so that important emails are not hidden. A cancer screening test needs high recall so that sick patients are not missed. The **F1 score** is the harmonic mean of precision and recall and is useful when you need one number that balances both."
+ },
+ {
+  "chunk_id": "08_classification_metrics.md#3",
+  "doc_id": "08_classification_metrics.md",
+  "title": "Classification Metrics",
+  "topic": "Machine Learning",
+  "heading": "Thresholds and trade-offs",
+  "text": "Most classifiers output a probability. The default rule says \"positive if the probability is above 0.5\", but you can move this threshold. A lower threshold catches more positives (higher recall) and raises more false alarms (lower precision). Choose the threshold based on the real cost of each kind of mistake."
+ },
+ {
+  "chunk_id": "08_classification_metrics.md#4",
+  "doc_id": "08_classification_metrics.md",
+  "title": "Classification Metrics",
+  "topic": "Machine Learning",
+  "heading": "ROC curve and AUC",
+  "text": "The ROC curve plots the true positive rate against the false positive rate for every possible threshold. The area under it, **ROC AUC**, is the probability that the model ranks a random positive above a random negative: 0.5 is guessing and 1.0 is perfect. For very imbalanced data the precision-recall curve is often more informative."
+ },
+ {
+  "chunk_id": "08_classification_metrics.md#5",
+  "doc_id": "08_classification_metrics.md",
+  "title": "Classification Metrics",
+  "topic": "Machine Learning",
+  "heading": "Good practice",
+  "text": "Report several metrics, show the confusion matrix, compare with a baseline that always predicts the majority class, and use a stratified split so that the rare class appears in both training and test sets."
+ },
+ {
+  "chunk_id": "09_clustering.md#0",
+  "doc_id": "09_clustering.md",
+  "title": "Clustering",
+  "topic": "Machine Learning",
+  "heading": "Unsupervised learning",
+  "text": "In clustering there is no target column. The algorithm groups rows that are similar to each other, and people then study the groups and give them meaning. Typical uses are customer segmentation, grouping similar documents and finding unusual records that do not fit any group."
+ },
+ {
+  "chunk_id": "09_clustering.md#1",
+  "doc_id": "09_clustering.md",
+  "title": "Clustering",
+  "topic": "Machine Learning",
+  "heading": "k-means",
+  "text": "k-means needs the number of clusters, k, in advance. It places k centre points, assigns every row to its nearest centre, moves each centre to the average of its rows, and repeats until the assignments stop changing. Because it uses distances, features must be scaled first, otherwise the column with the largest numbers dominates. k-means works best when the groups are roughly round and of similar size."
+ },
+ {
+  "chunk_id": "09_clustering.md#2",
+  "doc_id": "09_clustering.md",
+  "title": "Clustering",
+  "topic": "Machine Learning",
+  "heading": "Choosing the number of clusters",
+  "text": "The **elbow method** plots the within-cluster sum of squares (inertia) for several values of k and looks for the point where adding clusters stops helping much. The **silhouette score**, from -1 to 1, measures how much closer each point is to its own cluster than to the next one; higher is better. In business problems, the final choice also depends on how many groups people can actually act on."
+ },
+ {
+  "chunk_id": "09_clustering.md#3",
+  "doc_id": "09_clustering.md",
+  "title": "Clustering",
+  "topic": "Machine Learning",
+  "heading": "Other clustering methods",
+  "text": "- **Hierarchical (agglomerative) clustering** merges the closest groups step by step and can be drawn as a tree called a dendrogram. - **DBSCAN** finds dense regions of points, does not need k, and labels isolated points as noise. It handles odd shapes but is sensitive to its distance setting."
+ },
+ {
+  "chunk_id": "09_clustering.md#4",
+  "doc_id": "09_clustering.md",
+  "title": "Clustering",
+  "topic": "Machine Learning",
+  "heading": "Interpreting clusters",
+  "text": "After clustering, profile each group: compute the average of every feature per cluster and compare it with the overall average. Give each cluster a short descriptive name only if the profile supports it. Check stability by re-running with different random seeds; groups that change every run should not drive business decisions."
+ },
+ {
+  "chunk_id": "09_clustering.md#5",
+  "doc_id": "09_clustering.md",
+  "title": "Clustering",
+  "topic": "Machine Learning",
+  "heading": "Visualising clusters",
+  "text": "With many features, reduce them to two dimensions with PCA and colour each point by its cluster. Overlap in the 2D picture does not always mean overlap in the full space, because the projection loses information."
+ },
+ {
+  "chunk_id": "10_cross_validation.md#0",
+  "doc_id": "10_cross_validation.md",
+  "title": "Train, Validation, Test and Cross-Validation",
+  "topic": "Machine Learning",
+  "heading": "Why we hold data back",
+  "text": "A model must be judged on data it did not learn from, because the real goal is to perform well on new cases. We therefore split the data. The **training set** is used to fit the model, a **validation set** is used to compare models and choose settings, and a **test set** is kept locked away until the very end to give an honest final estimate."
+ },
+ {
+  "chunk_id": "10_cross_validation.md#1",
+  "doc_id": "10_cross_validation.md",
+  "title": "Train, Validation, Test and Cross-Validation",
+  "topic": "Machine Learning",
+  "heading": "The problem with one split",
+  "text": "A single random split can be lucky or unlucky: the test rows might happen to be easy or hard. With small datasets the score can change a lot depending on which rows end up in the test set, so one number can mislead you."
+ },
+ {
+  "chunk_id": "10_cross_validation.md#2",
+  "doc_id": "10_cross_validation.md",
+  "title": "Train, Validation, Test and Cross-Validation",
+  "topic": "Machine Learning",
+  "heading": "k-fold cross-validation",
+  "text": "Cross-validation splits the training data into k equal folds, often 5. The model is trained k times; each time a different fold is held out for scoring and the other folds are used for training. You get k scores and report their mean and standard deviation. The mean is a more reliable estimate, and the standard deviation tells you how stable the model is."
+ },
+ {
+  "chunk_id": "10_cross_validation.md#3",
+  "doc_id": "10_cross_validation.md",
+  "title": "Train, Validation, Test and Cross-Validation",
+  "topic": "Machine Learning",
+  "heading": "Stratified and grouped folds",
+  "text": "For classification use **stratified** folds, which keep the class proportions the same in every fold. When several rows belong to the same person or the same shop, use **grouped** folds so one group never appears in both training and validation. For time series, always train on the past and validate on the future instead of shuffling."
+ },
+ {
+  "chunk_id": "10_cross_validation.md#4",
+  "doc_id": "10_cross_validation.md",
+  "title": "Train, Validation, Test and Cross-Validation",
+  "topic": "Machine Learning",
+  "heading": "Tuning hyperparameters",
+  "text": "Hyperparameters are settings you choose before training, such as the depth of a tree or the strength of regularisation. `GridSearchCV` tries every combination in a grid and scores each one with cross-validation; `RandomizedSearchCV` tries a random sample of combinations, which is faster when the grid is large. Tune on the training data only and touch the test set once at the end."
+ },
+ {
+  "chunk_id": "10_cross_validation.md#5",
+  "doc_id": "10_cross_validation.md",
+  "title": "Train, Validation, Test and Cross-Validation",
+  "topic": "Machine Learning",
+  "heading": "Common mistakes",
+  "text": "Fitting a scaler or imputer on all data before cross-validation leaks information, so put preprocessing inside a pipeline. Checking the test score many times and changing the model each time slowly turns the test set into a validation set, and the final score becomes too optimistic."
+ },
+ {
+  "chunk_id": "11_overfitting_regularisation.md#0",
+  "doc_id": "11_overfitting_regularisation.md",
+  "title": "Overfitting and Regularisation",
+  "topic": "Machine Learning",
+  "heading": "What overfitting looks like",
+  "text": "A model overfits when it learns the training examples too closely, including their noise and accidents, instead of the general pattern. The sign is a large gap: excellent scores on the training data but much worse scores on validation or test data. Imagine a student who memorises last year's exam answers word for word and then fails when the questions are phrased differently."
+ },
+ {
+  "chunk_id": "11_overfitting_regularisation.md#1",
+  "doc_id": "11_overfitting_regularisation.md",
+  "title": "Overfitting and Regularisation",
+  "topic": "Machine Learning",
+  "heading": "Underfitting",
+  "text": "The opposite problem is underfitting: the model is too simple to capture the pattern, so it does badly on both training and test data. A straight line fitted to a clearly curved relationship underfits."
+ },
+ {
+  "chunk_id": "11_overfitting_regularisation.md#2",
+  "doc_id": "11_overfitting_regularisation.md",
+  "title": "Overfitting and Regularisation",
+  "topic": "Machine Learning",
+  "heading": "The bias-variance trade-off",
+  "text": "**Bias** is error from overly simple assumptions; **variance** is error from being too sensitive to the particular training sample. Simple models have high bias and low variance; very flexible models have low bias and high variance. The aim is the middle ground that generalises best to new data, found by comparing validation scores."
+ },
+ {
+  "chunk_id": "11_overfitting_regularisation.md#3",
+  "doc_id": "11_overfitting_regularisation.md",
+  "title": "Overfitting and Regularisation",
+  "topic": "Machine Learning",
+  "heading": "How to reduce overfitting",
+  "text": "- Get more training data, which makes accidental patterns less convincing. - Use a simpler model or fewer features. - Limit tree depth or require a minimum number of samples in each leaf. - Use cross-validation to choose settings honestly. - For neural networks, use dropout, early stopping and data augmentation."
+ },
+ {
+  "chunk_id": "11_overfitting_regularisation.md#4",
+  "doc_id": "11_overfitting_regularisation.md",
+  "title": "Overfitting and Regularisation",
+  "topic": "Machine Learning",
+  "heading": "Regularisation",
+  "text": "Regularisation adds a penalty for complexity to the loss the model minimises, so the model prefers smaller weights. **L2 regularisation (ridge)** penalises the squared size of the weights and shrinks them all smoothly towards zero. **L1 regularisation (lasso)** penalises the absolute size of the weights and can push some of them exactly to zero, which also performs feature selection. Elastic net mixes both. In scikit-learn the strength is controlled by `alpha` for Ridge and Lasso, and by `C` for logistic regression, where a smaller `C` means stronger regularisation. Choosing the strength is a balancing act. With almost no penalty the model behaves as if it were not regularised and can still overfit. With a very strong penalty all weights are"
+ },
+ {
+  "chunk_id": "11_overfitting_regularisation.md#5",
+  "doc_id": "11_overfitting_regularisation.md",
+  "title": "Overfitting and Regularisation",
+  "topic": "Machine Learning",
+  "heading": "Regularisation",
+  "text": "With almost no penalty the model behaves as if it were not regularised and can still overfit. With a very strong penalty all weights are squeezed so close to zero that the model ignores useful features and underfits. Try a range of values, for example 0.01, 0.1, 1, 10 and 100, and keep the one with the best cross-validated score. Remember to standardise the features first, because the penalty treats all weights the same way and a feature measured in large units would otherwise be punished unfairly."
+ },
+ {
+  "chunk_id": "11_overfitting_regularisation.md#6",
+  "doc_id": "11_overfitting_regularisation.md",
+  "title": "Overfitting and Regularisation",
+  "topic": "Machine Learning",
+  "heading": "Dropout and early stopping",
+  "text": "In neural networks, **dropout** randomly switches off a fraction of neurons during each training step, so the network cannot rely on any single neuron and must spread what it learns. **Early stopping** watches the validation loss and stops training when it has not improved for a few epochs, keeping the best weights."
+ },
+ {
+  "chunk_id": "11_overfitting_regularisation.md#7",
+  "doc_id": "11_overfitting_regularisation.md",
+  "title": "Overfitting and Regularisation",
+  "topic": "Machine Learning",
+  "heading": "Learning curves",
+  "text": "Plot training and validation scores as the amount of training data grows. If the curves stay far apart, more data or more regularisation should help; if both are low and close together, the model is underfitting and needs more capacity or better features."
+ },
+ {
+  "chunk_id": "12_neural_networks.md#0",
+  "doc_id": "12_neural_networks.md",
+  "title": "Neural Networks",
+  "topic": "Deep Learning",
+  "heading": "From a neuron to a network",
+  "text": "An artificial neuron takes several inputs, multiplies each by a weight, adds a bias and passes the total through an activation function. A neural network stacks many neurons into layers: an input layer, one or more hidden layers and an output layer. Each layer transforms the output of the previous one, which lets the network learn complex, non-linear patterns."
+ },
+ {
+  "chunk_id": "12_neural_networks.md#1",
+  "doc_id": "12_neural_networks.md",
+  "title": "Neural Networks",
+  "topic": "Deep Learning",
+  "heading": "Activation functions",
+  "text": "Without activation functions a stack of layers would collapse into one linear model. **ReLU** outputs the input if it is positive and zero otherwise; it is the default for hidden layers because it is simple and trains well. **Sigmoid** squeezes a value into 0 to 1 and is used for yes/no outputs. **Softmax** turns a list of scores into probabilities that add up to 1 and is used for multi-class outputs."
+ },
+ {
+  "chunk_id": "12_neural_networks.md#2",
+  "doc_id": "12_neural_networks.md",
+  "title": "Neural Networks",
+  "topic": "Deep Learning",
+  "heading": "How a network learns",
+  "text": "Training repeats four steps. In the **forward pass** the network makes predictions. A **loss function** measures how wrong they are: mean squared error for numbers, cross-entropy for classes. **Backpropagation** uses the chain rule to work out how much each weight contributed to the loss. Finally **gradient descent** nudges every weight a small step in the direction that reduces the loss. The size of that step is the **learning rate**: too large and training jumps around or diverges, too small and training is very slow."
+ },
+ {
+  "chunk_id": "12_neural_networks.md#3",
+  "doc_id": "12_neural_networks.md",
+  "title": "Neural Networks",
+  "topic": "Deep Learning",
+  "heading": "Batches and epochs",
+  "text": "Instead of using all the data for each update, training uses small **mini-batches**, for example 32 rows. One **epoch** means the network has seen every training example once. Training usually runs for many epochs while you watch the training and validation loss."
+ },
+ {
+  "chunk_id": "12_neural_networks.md#4",
+  "doc_id": "12_neural_networks.md",
+  "title": "Neural Networks",
+  "topic": "Deep Learning",
+  "heading": "Optimisers",
+  "text": "Plain stochastic gradient descent uses the same learning rate for every weight. **Adam** adapts the step size for each weight using running averages of past gradients and is a strong default choice for beginners."
+ },
+ {
+  "chunk_id": "12_neural_networks.md#5",
+  "doc_id": "12_neural_networks.md",
+  "title": "Neural Networks",
+  "topic": "Deep Learning",
+  "heading": "When neural networks help",
+  "text": "Neural networks shine on images, audio and text, where they learn useful features automatically from raw data. For small tables of numbers, gradient-boosted trees are often just as accurate, faster to train and easier to explain."
+ },
+ {
+  "chunk_id": "13_keras_tensorflow.md#0",
+  "doc_id": "13_keras_tensorflow.md",
+  "title": "Building Models with Keras",
+  "topic": "Deep Learning",
+  "heading": "What Keras is",
+  "text": "Keras is the high-level API of TensorFlow for building and training neural networks. You describe the layers, choose a loss function and an optimiser, and Keras handles the gradient calculations for you. The same few steps work for small tabular models and for large image or text models."
+ },
+ {
+  "chunk_id": "13_keras_tensorflow.md#1",
+  "doc_id": "13_keras_tensorflow.md",
+  "title": "Building Models with Keras",
+  "topic": "Deep Learning",
+  "heading": "The four steps",
+  "text": "1. **Define** the model, for example with `keras.Sequential` and a list of `Dense` layers. 2. **Compile** it with an optimiser such as `\"adam\"`, a loss such as `\"sparse_categorical_crossentropy\"` and metrics such as `\"accuracy\"`. 3. **Fit** it on training data with `model.fit(X_train, y_train, epochs=20, batch_size=32, validation_split=0.2)`. 4. **Evaluate** it on the test set with `model.evaluate`, then call `model.predict` on new data."
+ },
+ {
+  "chunk_id": "13_keras_tensorflow.md#2",
+  "doc_id": "13_keras_tensorflow.md",
+  "title": "Building Models with Keras",
+  "topic": "Deep Learning",
+  "heading": "Reading the training history",
+  "text": "`fit` returns a history object with the loss and metrics for every epoch on both training and validation data. Plot them. If the training loss keeps falling while the validation loss starts rising, the network has begun to memorise the training set."
+ },
+ {
+  "chunk_id": "13_keras_tensorflow.md#3",
+  "doc_id": "13_keras_tensorflow.md",
+  "title": "Building Models with Keras",
+  "topic": "Deep Learning",
+  "heading": "Callbacks",
+  "text": "Callbacks run code during training. `EarlyStopping(monitor=\"val_loss\", patience=3, restore_best_weights=True)` stops training when the validation loss stops improving. `ModelCheckpoint` saves the best model to disk while training."
+ },
+ {
+  "chunk_id": "13_keras_tensorflow.md#4",
+  "doc_id": "13_keras_tensorflow.md",
+  "title": "Building Models with Keras",
+  "topic": "Deep Learning",
+  "heading": "Common layer types",
+  "text": "- `Dense`: every input connects to every neuron; used for tabular data and final outputs. - `Conv2D` and `MaxPooling2D`: learn local patterns in images. - `Embedding`: turns word ids into dense vectors for text models. - `Dropout`: randomly drops neurons during training to reduce overfitting."
+ },
+ {
+  "chunk_id": "13_keras_tensorflow.md#5",
+  "doc_id": "13_keras_tensorflow.md",
+  "title": "Building Models with Keras",
+  "topic": "Deep Learning",
+  "heading": "Saving and loading",
+  "text": "Save a trained model with `model.save(\"model.keras\")` and load it later with `keras.models.load_model`. Remember to save any preprocessing too, such as the scaler or the tokenizer vocabulary, because new inputs must be transformed exactly as the training data was."
+ },
+ {
+  "chunk_id": "13_keras_tensorflow.md#6",
+  "doc_id": "13_keras_tensorflow.md",
+  "title": "Building Models with Keras",
+  "topic": "Deep Learning",
+  "heading": "Typical errors",
+  "text": "Shape mismatch errors usually mean the input shape does not match the first layer or the labels are in the wrong format for the loss. Using `sparse_categorical_crossentropy` with one-hot labels, or forgetting to scale pixel values to 0 to 1, are two very common beginner mistakes."
+ },
+ {
+  "chunk_id": "14_nlp_fundamentals.md#0",
+  "doc_id": "14_nlp_fundamentals.md",
+  "title": "NLP Fundamentals",
+  "topic": "NLP & GenAI",
+  "heading": "What NLP is",
+  "text": "Natural language processing (NLP) is the part of AI that works with human language: classifying reviews as positive or negative, detecting spam, extracting names from documents, translating, summarising and answering questions. Computers need numbers, so the first problem in NLP is always how to turn text into numbers without losing its meaning."
+ },
+ {
+  "chunk_id": "14_nlp_fundamentals.md#1",
+  "doc_id": "14_nlp_fundamentals.md",
+  "title": "NLP Fundamentals",
+  "topic": "NLP & GenAI",
+  "heading": "Cleaning and tokenisation",
+  "text": "A typical pipeline lowercases the text, removes extra spaces and odd symbols, and then splits it into **tokens**, usually words or pieces of words. **Stop words** such as \"the\", \"is\" and \"and\" are very common and often removed for simple models. **Stemming** cuts words down to a rough root (playing, played to play), and **lemmatisation** uses a dictionary to find the proper base form (better to good)."
+ },
+ {
+  "chunk_id": "14_nlp_fundamentals.md#2",
+  "doc_id": "14_nlp_fundamentals.md",
+  "title": "NLP Fundamentals",
+  "topic": "NLP & GenAI",
+  "heading": "Bag of words and TF-IDF",
+  "text": "The **bag-of-words** model represents a document by counting how often each vocabulary word appears, ignoring word order. **TF-IDF** improves on raw counts: a word gets a high weight if it is frequent in this document (term frequency) but rare across the collection (inverse document frequency). Words that appear everywhere get low weights because they do not help tell documents apart. TF-IDF vectors with a logistic regression classifier are a strong, fast baseline for many text classification tasks."
+ },
+ {
+  "chunk_id": "14_nlp_fundamentals.md#3",
+  "doc_id": "14_nlp_fundamentals.md",
+  "title": "NLP Fundamentals",
+  "topic": "NLP & GenAI",
+  "heading": "Limits of word counting",
+  "text": "Bag-of-words and TF-IDF only match exact words. \"car\" and \"automobile\" are treated as completely unrelated, and \"not good\" looks almost the same as \"good\". They also ignore word order and context, so \"bank\" means the same thing in \"river bank\" and \"bank loan\"."
+ },
+ {
+  "chunk_id": "14_nlp_fundamentals.md#4",
+  "doc_id": "14_nlp_fundamentals.md",
+  "title": "NLP Fundamentals",
+  "topic": "NLP & GenAI",
+  "heading": "Word embeddings",
+  "text": "Word embeddings such as Word2Vec and GloVe give each word a dense vector learned from large amounts of text, so words used in similar contexts get similar vectors. This captures meaning much better than counting, but each word still has only one vector regardless of the sentence it appears in. Contextual models based on transformers solve that problem."
+ },
+ {
+  "chunk_id": "14_nlp_fundamentals.md#5",
+  "doc_id": "14_nlp_fundamentals.md",
+  "title": "NLP Fundamentals",
+  "topic": "NLP & GenAI",
+  "heading": "Evaluating NLP models",
+  "text": "Use the same classification metrics as elsewhere (precision, recall, F1), and read some of the mistakes yourself: sarcasm, negation and spelling errors are common causes."
+ },
+ {
+  "chunk_id": "15_transformers_attention.md#0",
+  "doc_id": "15_transformers_attention.md",
+  "title": "Transformers and Attention",
+  "topic": "NLP & GenAI",
+  "heading": "Why transformers were invented",
+  "text": "Older sequence models such as RNNs and LSTMs read text one word at a time. That makes them slow to train and they struggle to connect words that are far apart in a long passage. The transformer, introduced in the 2017 paper \"Attention Is All You Need\", processes all the words of a sequence in parallel and uses attention to connect any word directly with any other."
+ },
+ {
+  "chunk_id": "15_transformers_attention.md#1",
+  "doc_id": "15_transformers_attention.md",
+  "title": "Transformers and Attention",
+  "topic": "NLP & GenAI",
+  "heading": "Self-attention in plain words",
+  "text": "For each word, self-attention asks: which other words in this sentence should I look at to understand myself? In \"The animal did not cross the street because it was too tired\", attention helps the model link \"it\" to \"animal\". Technically, every token produces a **query**, a **key** and a **value** vector. The query of one token is compared with the keys of all tokens using dot products; a softmax turns these scores into weights; and the output is the weighted average of the value vectors. The result is a new, context-aware vector for every token."
+ },
+ {
+  "chunk_id": "15_transformers_attention.md#2",
+  "doc_id": "15_transformers_attention.md",
+  "title": "Transformers and Attention",
+  "topic": "NLP & GenAI",
+  "heading": "Multi-head attention and positions",
+  "text": "Several attention \"heads\" run side by side, each free to focus on a different kind of relationship, for example grammar in one head and meaning in another. Because attention by itself ignores word order, transformers add **positional encodings** to the token embeddings so the model knows where each token sits in the sequence."
+ },
+ {
+  "chunk_id": "15_transformers_attention.md#3",
+  "doc_id": "15_transformers_attention.md",
+  "title": "Transformers and Attention",
+  "topic": "NLP & GenAI",
+  "heading": "Encoders and decoders",
+  "text": "The original transformer has an **encoder**, which reads the input, and a **decoder**, which generates output one token at a time. **BERT** uses only the encoder and is good at understanding tasks such as classification and search. **GPT** models use only the decoder and are trained to predict the next token, which makes them good at generating text."
+ },
+ {
+  "chunk_id": "15_transformers_attention.md#4",
+  "doc_id": "15_transformers_attention.md",
+  "title": "Transformers and Attention",
+  "topic": "NLP & GenAI",
+  "heading": "Tokenisation for transformers",
+  "text": "Transformers use subword tokenisers. Rare words are split into frequent pieces, so the vocabulary stays manageable while any word can still be represented. A rough rule for English is that one token is about three quarters of a word."
+ },
+ {
+  "chunk_id": "15_transformers_attention.md#5",
+  "doc_id": "15_transformers_attention.md",
+  "title": "Transformers and Attention",
+  "topic": "NLP & GenAI",
+  "heading": "Pre-training and fine-tuning",
+  "text": "Transformers are first pre-trained on huge amounts of text to learn general language patterns, then fine-tuned on a smaller labelled dataset for a specific task. This transfer learning is why good results are possible without training from scratch."
+ },
+ {
+  "chunk_id": "16_large_language_models.md#0",
+  "doc_id": "16_large_language_models.md",
+  "title": "Large Language Models",
+  "topic": "NLP & GenAI",
+  "heading": "What an LLM is",
+  "text": "A large language model (LLM) is a very large transformer trained to predict the next token of text. After training on a huge collection of books, websites and code, it can write, summarise, translate, answer questions and generate code, all from the same basic skill of continuing text."
+ },
+ {
+  "chunk_id": "16_large_language_models.md#1",
+  "doc_id": "16_large_language_models.md",
+  "title": "Large Language Models",
+  "topic": "NLP & GenAI",
+  "heading": "How LLMs are trained",
+  "text": "Training happens in stages. **Pre-training** teaches next-token prediction on a massive general corpus; this is where the model picks up grammar, facts and reasoning patterns, and it is extremely expensive. **Instruction tuning** then trains the model on examples of instructions and good answers so that it follows requests instead of just continuing text. Finally, methods such as **reinforcement learning from human feedback** use human preference ratings to make answers more helpful and safer."
+ },
+ {
+  "chunk_id": "16_large_language_models.md#2",
+  "doc_id": "16_large_language_models.md",
+  "title": "Large Language Models",
+  "topic": "NLP & GenAI",
+  "heading": "Generating text",
+  "text": "The model produces one token at a time. At each step it outputs a probability for every token in its vocabulary and picks one. **Temperature** controls randomness: a low temperature makes the model choose the most likely tokens and gives focused, repeatable answers, while a higher temperature gives more varied and creative text. The **context window** is the maximum number of tokens the model can read and write in one request."
+ },
+ {
+  "chunk_id": "16_large_language_models.md#3",
+  "doc_id": "16_large_language_models.md",
+  "title": "Large Language Models",
+  "topic": "NLP & GenAI",
+  "heading": "Hallucinations and other limitations",
+  "text": "LLMs can produce fluent text that is simply false, such as invented references or wrong numbers; this is called **hallucination**. Their knowledge stops at a training cutoff date, they do not know your private documents, and they can repeat biases found in their training data. Important outputs must be checked by people."
+ },
+ {
+  "chunk_id": "16_large_language_models.md#4",
+  "doc_id": "16_large_language_models.md",
+  "title": "Large Language Models",
+  "topic": "NLP & GenAI",
+  "heading": "Using LLMs in applications",
+  "text": "Most applications call an LLM through an API: you send messages and receive generated text, paying per token. Open-weight models can instead be downloaded and run on your own hardware, which helps with privacy but needs a capable GPU. Keep API keys secret in environment variables and never commit them to code repositories."
+ },
+ {
+  "chunk_id": "16_large_language_models.md#5",
+  "doc_id": "16_large_language_models.md",
+  "title": "Large Language Models",
+  "topic": "NLP & GenAI",
+  "heading": "Making answers reliable",
+  "text": "Clear prompts, giving the model the relevant documents (retrieval-augmented generation), asking for structured output such as JSON and validating it, and evaluating answers on a fixed set of test questions all make LLM applications more dependable."
+ },
+ {
+  "chunk_id": "17_prompt_engineering.md#0",
+  "doc_id": "17_prompt_engineering.md",
+  "title": "Prompt Engineering",
+  "topic": "NLP & GenAI",
+  "heading": "What a prompt is",
+  "text": "A prompt is the input text you give a language model. The same model can give a vague answer or an excellent one depending on how the request is written. Prompt engineering is the practice of writing clear, specific instructions and testing them systematically."
+ },
+ {
+  "chunk_id": "17_prompt_engineering.md#1",
+  "doc_id": "17_prompt_engineering.md",
+  "title": "Prompt Engineering",
+  "topic": "NLP & GenAI",
+  "heading": "Principles of a good prompt",
+  "text": "- **Be specific about the task:** \"Summarise this review in two sentences for a product manager\" beats \"Summarise this\". - **Give context:** who the audience is, what the answer will be used for, and any facts the model needs. - **Show the format:** ask for bullet points, a table or JSON with named fields. - **Set boundaries:** say what to do when the information is missing, for example \"If the answer is not in the text, say you don't know\"."
+ },
+ {
+  "chunk_id": "17_prompt_engineering.md#2",
+  "doc_id": "17_prompt_engineering.md",
+  "title": "Prompt Engineering",
+  "topic": "NLP & GenAI",
+  "heading": "System and user messages",
+  "text": "Chat models accept messages with roles. The **system message** sets lasting behaviour, such as \"You are a patient tutor for beginners. Answer in simple English.\" The **user message** carries the actual request. Keeping rules in the system message makes behaviour more consistent across a conversation."
+ },
+ {
+  "chunk_id": "17_prompt_engineering.md#3",
+  "doc_id": "17_prompt_engineering.md",
+  "title": "Prompt Engineering",
+  "topic": "NLP & GenAI",
+  "heading": "Zero-shot and few-shot prompting",
+  "text": "A **zero-shot** prompt simply describes the task. A **few-shot** prompt also includes a handful of worked examples of input and desired output. Examples are one of the most reliable ways to show the model the style, labels or format you want, especially for classification and data extraction."
+ },
+ {
+  "chunk_id": "17_prompt_engineering.md#4",
+  "doc_id": "17_prompt_engineering.md",
+  "title": "Prompt Engineering",
+  "topic": "NLP & GenAI",
+  "heading": "Asking for step-by-step reasoning",
+  "text": "For multi-step problems, asking the model to work through the problem before giving a final answer often improves accuracy. In applications, ask for the reasoning and the final answer in separate fields so your code can read the answer reliably."
+ },
+ {
+  "chunk_id": "17_prompt_engineering.md#5",
+  "doc_id": "17_prompt_engineering.md",
+  "title": "Prompt Engineering",
+  "topic": "NLP & GenAI",
+  "heading": "Structured output",
+  "text": "When code will read the answer, request JSON with exact field names and then validate it. Always handle the case where the output is not valid JSON, for example by retrying or showing an error."
+ },
+ {
+  "chunk_id": "17_prompt_engineering.md#6",
+  "doc_id": "17_prompt_engineering.md",
+  "title": "Prompt Engineering",
+  "topic": "NLP & GenAI",
+  "heading": "Testing prompts",
+  "text": "Treat prompts like code. Keep a small set of test inputs, run every prompt version on all of them and compare the results. Change one thing at a time so you know what helped."
+ },
+ {
+  "chunk_id": "17_prompt_engineering.md#7",
+  "doc_id": "17_prompt_engineering.md",
+  "title": "Prompt Engineering",
+  "topic": "NLP & GenAI",
+  "heading": "Prompt injection",
+  "text": "If your prompt includes text from users or documents, that text may contain instructions such as \"ignore previous instructions\". Clearly separate untrusted content, tell the model to treat it as data, and never give the model more permissions than the task needs."
+ },
+ {
+  "chunk_id": "18_embeddings_vector_search.md#0",
+  "doc_id": "18_embeddings_vector_search.md",
+  "title": "Embeddings and Vector Search",
+  "topic": "NLP & GenAI",
+  "heading": "Meaning as coordinates",
+  "text": "An embedding is a list of numbers, a vector, that represents a piece of text, an image or another item. Embedding models are trained so that items with similar meaning get vectors that are close together. \"How do I reset my password?\" and \"I forgot my login details\" share almost no words, yet a good embedding model places them near each other."
+ },
+ {
+  "chunk_id": "18_embeddings_vector_search.md#1",
+  "doc_id": "18_embeddings_vector_search.md",
+  "title": "Embeddings and Vector Search",
+  "topic": "NLP & GenAI",
+  "heading": "How embedding models learn",
+  "text": "Modern sentence embedding models are usually trained with a **contrastive** idea: pairs of texts that belong together, such as a question and its answer, are pulled closer, while unrelated texts are pushed apart. After training on millions of such pairs, the model maps any new sentence to a point in a space of a few hundred dimensions."
+ },
+ {
+  "chunk_id": "18_embeddings_vector_search.md#2",
+  "doc_id": "18_embeddings_vector_search.md",
+  "title": "Embeddings and Vector Search",
+  "topic": "NLP & GenAI",
+  "heading": "Measuring similarity",
+  "text": "- **Dot product:** multiplies matching coordinates and adds them up. - **Cosine similarity:** the dot product of the two vectors divided by their lengths; it measures the angle, from -1 to 1, and ignores length. It is the most common choice for text. - **Euclidean distance:** the straight-line distance between two points. If vectors are normalised to length 1, the dot product and cosine similarity give exactly the same ranking."
+ },
+ {
+  "chunk_id": "18_embeddings_vector_search.md#3",
+  "doc_id": "18_embeddings_vector_search.md",
+  "title": "Embeddings and Vector Search",
+  "topic": "NLP & GenAI",
+  "heading": "Semantic search",
+  "text": "Semantic search finds documents by meaning instead of exact words. The pipeline is: split documents into chunks, embed each chunk, store the vectors, embed the user's query with the same model, and return the chunks whose vectors are most similar. Documents and queries must always use the same embedding model; vectors from different models cannot be compared."
+ },
+ {
+  "chunk_id": "18_embeddings_vector_search.md#4",
+  "doc_id": "18_embeddings_vector_search.md",
+  "title": "Embeddings and Vector Search",
+  "topic": "NLP & GenAI",
+  "heading": "Vector databases",
+  "text": "For a few thousand chunks, a NumPy matrix and a brute-force similarity calculation are fast enough. For millions of vectors, **approximate nearest neighbour** indexes such as HNSW or IVF trade a little accuracy for a large speed-up. Tools such as FAISS, Chroma, Qdrant, Weaviate, Pinecone and the pgvector extension for PostgreSQL store vectors together with metadata, so you can filter results, for example by topic or date."
+ },
+ {
+  "chunk_id": "18_embeddings_vector_search.md#5",
+  "doc_id": "18_embeddings_vector_search.md",
+  "title": "Embeddings and Vector Search",
+  "topic": "NLP & GenAI",
+  "heading": "Evaluating retrieval",
+  "text": "Build a small set of test queries with the document that should be found. Measure **hit rate at k** (is the right document in the top k?), and **mean reciprocal rank** (how high is it, on average?). Look at the failures to decide whether to change the chunking, the embedding model or the query handling."
+ },
+ {
+  "chunk_id": "19_retrieval_augmented_generation.md#0",
+  "doc_id": "19_retrieval_augmented_generation.md",
+  "title": "Retrieval-Augmented Generation (RAG)",
+  "topic": "NLP & GenAI",
+  "heading": "The problem RAG solves",
+  "text": "A language model only knows what was in its training data. It does not know your company handbook, last week's product changes or your course notes, and when asked about them it may confidently make something up. Retrieval-augmented generation fixes this by looking up relevant passages first and giving them to the model together with the question."
+ },
+ {
+  "chunk_id": "19_retrieval_augmented_generation.md#1",
+  "doc_id": "19_retrieval_augmented_generation.md",
+  "title": "Retrieval-Augmented Generation (RAG)",
+  "topic": "NLP & GenAI",
+  "heading": "The RAG pipeline",
+  "text": "1. **Index:** split your documents into chunks, embed each chunk and store the vectors with their text and source. 2. **Retrieve:** embed the user's question with the same model and find the most similar chunks. 3. **Augment:** build a prompt that contains the question and the retrieved chunks, with instructions such as \"Answer only from the context below and cite the source\". 4. **Generate:** send the prompt to the language model and return its answer with links to the sources."
+ },
+ {
+  "chunk_id": "19_retrieval_augmented_generation.md#2",
+  "doc_id": "19_retrieval_augmented_generation.md",
+  "title": "Retrieval-Augmented Generation (RAG)",
+  "topic": "NLP & GenAI",
+  "heading": "Chunking matters",
+  "text": "Chunks that are too large mix several topics and waste the context window; chunks that are too small lose the surrounding explanation. A common starting point is a few hundred words per chunk, split along headings or paragraphs, with a small overlap so that a sentence cut at the boundary still appears whole in one chunk. Keep metadata such as the document title and section heading with every chunk."
+ },
+ {
+  "chunk_id": "19_retrieval_augmented_generation.md#3",
+  "doc_id": "19_retrieval_augmented_generation.md",
+  "title": "Retrieval-Augmented Generation (RAG)",
+  "topic": "NLP & GenAI",
+  "heading": "Grounding and citations",
+  "text": "Tell the model to use only the supplied context and to say \"I don't know\" when the context does not contain the answer. Showing the retrieved sources to the user lets them check the answer. If the best retrieval score is low, it is often better to say that nothing relevant was found than to let the model guess."
+ },
+ {
+  "chunk_id": "19_retrieval_augmented_generation.md#4",
+  "doc_id": "19_retrieval_augmented_generation.md",
+  "title": "Retrieval-Augmented Generation (RAG)",
+  "topic": "NLP & GenAI",
+  "heading": "Evaluating a RAG system",
+  "text": "Evaluate the two halves separately. **Retrieval quality:** did the right chunk appear in the top results? **Answer quality:** is the answer correct, complete and supported by the retrieved text? Keep a fixed set of test questions and re-run it whenever you change chunking, the embedding model or the prompt."
+ },
+ {
+  "chunk_id": "19_retrieval_augmented_generation.md#5",
+  "doc_id": "19_retrieval_augmented_generation.md",
+  "title": "Retrieval-Augmented Generation (RAG)",
+  "topic": "NLP & GenAI",
+  "heading": "Common problems",
+  "text": "Poor answers usually come from poor retrieval: the right passage was never found. Other causes are chunks without context, outdated documents in the index and questions that need information spread across many documents. Improvements include hybrid search (keywords plus embeddings), re-ranking the top results and rewriting the user's question before searching."
+ },
+ {
+  "chunk_id": "20_deployment_basics.md#0",
+  "doc_id": "20_deployment_basics.md",
+  "title": "Deployment Basics",
+  "topic": "Deployment",
+  "heading": "What deployment means",
+  "text": "A model in a notebook helps nobody else. Deployment means making the model available to users or other programs, reliably and repeatedly. The most common pattern for beginners is a **web API**: a small server that receives input as JSON, runs the model and returns the prediction as JSON."
+ },
+ {
+  "chunk_id": "20_deployment_basics.md#1",
+  "doc_id": "20_deployment_basics.md",
+  "title": "Deployment Basics",
+  "topic": "Deployment",
+  "heading": "Save once, load once",
+  "text": "Train the model in a notebook or script and save it to a file, for example with `joblib.dump` for scikit-learn pipelines or `model.save` for Keras. The API loads the file once when it starts and reuses it for every request. Never retrain the model inside a request; it is slow and gives inconsistent results."
+ },
+ {
+  "chunk_id": "20_deployment_basics.md#2",
+  "doc_id": "20_deployment_basics.md",
+  "title": "Deployment Basics",
+  "topic": "Deployment",
+  "heading": "Building an API with Flask",
+  "text": "Flask maps URLs to Python functions. A typical project has a health endpoint that reports whether the model is loaded, and a prediction endpoint that accepts a POST request with JSON. The prediction function should validate every input field, return clear error messages with a 4xx status code when something is wrong, and only then call the model."
+ },
+ {
+  "chunk_id": "20_deployment_basics.md#3",
+  "doc_id": "20_deployment_basics.md",
+  "title": "Deployment Basics",
+  "topic": "Deployment",
+  "heading": "Talking to a frontend",
+  "text": "A web page built with React or plain HTML sends requests to the API with `fetch`. Because the page and the API run on different ports, the browser applies **CORS** rules, and the API must send a header allowing the page's origin. Show a loading state while waiting and a friendly message when the API cannot be reached."
+ },
+ {
+  "chunk_id": "20_deployment_basics.md#4",
+  "doc_id": "20_deployment_basics.md",
+  "title": "Deployment Basics",
+  "topic": "Deployment",
+  "heading": "Environments and dependencies",
+  "text": "List the packages and versions your project needs in `requirements.txt` and install them in a virtual environment. Keep secrets such as API keys in environment variables, not in the code. **Docker** packages the code, the libraries and the model into one image that runs the same way on any machine."
+ },
+ {
+  "chunk_id": "20_deployment_basics.md#5",
+  "doc_id": "20_deployment_basics.md",
+  "title": "Deployment Basics",
+  "topic": "Deployment",
+  "heading": "Testing and monitoring",
+  "text": "Write automated tests for the API: a valid request, each kind of invalid input and the health check. After release, log requests, response times and errors. Watch for **data drift**: when real inputs start to look different from the training data, the model's accuracy can drop silently and it may need retraining."
+ },
+ {
+  "chunk_id": "20_deployment_basics.md#6",
+  "doc_id": "20_deployment_basics.md",
+  "title": "Deployment Basics",
+  "topic": "Deployment",
+  "heading": "Going to production",
+  "text": "For real traffic, run Flask behind a production server such as gunicorn, add authentication and rate limiting, and version your models so you can roll back if a new one performs worse."
+ }
+]

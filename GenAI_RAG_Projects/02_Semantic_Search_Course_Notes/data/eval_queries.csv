@@ -1,0 +1,36 @@
+query_id,query,expected_doc,query_type
+1,how do I stop my model memorising the training data,11_overfitting_regularisation.md,paraphrase
+2,my model is great on the data it learned from but terrible on new examples,11_overfitting_regularisation.md,no_overlap
+3,penalty that shrinks the weights of a linear model,11_overfitting_regularisation.md,paraphrase
+4,fill in the blanks in a spreadsheet column before training,05_data_preprocessing.md,no_overlap
+5,turn city names into numbers for a model,05_data_preprocessing.md,paraphrase
+6,the model looks 98 percent right but never catches the rare cases,08_classification_metrics.md,no_overlap
+7,difference between precision and recall,08_classification_metrics.md,paraphrase
+8,how many groups should k-means use,09_clustering.md,paraphrase
+9,split shoppers into groups that behave alike without labels,09_clustering.md,no_overlap
+10,average the score over several different train and test splits,10_cross_validation.md,paraphrase
+11,find the best settings for a model before training,10_cross_validation.md,paraphrase
+12,draw a picture to compare categories and spot strange values,03_data_visualization.md,no_overlap
+13,which chart shows the spread of one number column,03_data_visualization.md,paraphrase
+14,join two tables on a shared id,02_pandas_dataframes.md,paraphrase
+15,average price for every city in my table,02_pandas_dataframes.md,paraphrase
+16,does a link between two things prove one causes the other,04_statistics_basics.md,paraphrase
+17,is the gap between version A and version B of my website real or luck,04_statistics_basics.md,no_overlap
+18,make new input columns from dates and ratios,06_feature_engineering.md,paraphrase
+19,predict a number like the price of a flat with a weighted sum,07_linear_regression.md,paraphrase
+20,how a network adjusts itself after each wrong guess,12_neural_networks.md,no_overlap
+21,what does the learning rate do,12_neural_networks.md,paraphrase
+22,stop training automatically when validation loss stops improving in keras,13_keras_tensorflow.md,paraphrase
+23,count words in documents and give rare words more weight,14_nlp_fundamentals.md,paraphrase
+24,how does a model know which earlier words matter for the current word,15_transformers_attention.md,no_overlap
+25,why does the chatbot confidently invent facts that are not true,16_large_language_models.md,no_overlap
+26,give the model a few worked examples inside the request,17_prompt_engineering.md,paraphrase
+27,find text with similar meaning even when different words are used,18_embeddings_vector_search.md,paraphrase
+28,let a chatbot answer questions about my own private documents,19_retrieval_augmented_generation.md,no_overlap
+29,put my trained model online so a web page can use it,20_deployment_basics.md,no_overlap
+30,convert a value from text to an integer in python,01_python_basics.md,paraphrase
+31,best recipe for chicken biryani,none,off_topic
+32,who won the football world cup,none,off_topic
+33,cheapest flights from mumbai to goa,none,off_topic
+34,how do I train my puppy to sit,none,off_topic
+35,where do pythons live in the wild,none,off_topic

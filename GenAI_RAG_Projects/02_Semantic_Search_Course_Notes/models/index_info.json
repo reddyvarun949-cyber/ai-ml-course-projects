@@ -1,0 +1,158 @@
+{
+  "embedding_method": "lsa",
+  "n_components": 30,
+  "chunking": {
+    "max_words": 120,
+    "overlap_words": 25,
+    "split_on": "## and ### headings, then paragraphs"
+  },
+  "n_chunks": 128,
+  "n_documents": 20,
+  "embedding_dim": 30,
+  "min_confidence": 0.3,
+  "max_query_chars": 300,
+  "topics": [
+    "Deep Learning",
+    "Deployment",
+    "Machine Learning",
+    "NLP & GenAI",
+    "Python & Data",
+    "Statistics"
+  ],
+  "documents": [
+    {
+      "doc_id": "01_python_basics.md",
+      "title": "Python Basics for Data Science",
+      "topic": "Python & Data"
+    },
+    {
+      "doc_id": "02_pandas_dataframes.md",
+      "title": "Working with Tables in pandas",
+      "topic": "Python & Data"
+    },
+    {
+      "doc_id": "03_data_visualization.md",
+      "title": "Data Visualization",
+      "topic": "Python & Data"
+    },
+    {
+      "doc_id": "04_statistics_basics.md",
+      "title": "Statistics Basics for Machine Learning",
+      "topic": "Statistics"
+    },
+    {
+      "doc_id": "05_data_preprocessing.md",
+      "title": "Data Preprocessing",
+      "topic": "Machine Learning"
+    },
+    {
+      "doc_id": "06_feature_engineering.md",
+      "title": "Feature Engineering",
+      "topic": "Machine Learning"
+    },
+    {
+      "doc_id": "07_linear_regression.md",
+      "title": "Linear Regression",
+      "topic": "Machine Learning"
+    },
+    {
+      "doc_id": "08_classification_metrics.md",
+      "title": "Classification Metrics",
+      "topic": "Machine Learning"
+    },
+    {
+      "doc_id": "09_clustering.md",
+      "title": "Clustering",
+      "topic": "Machine Learning"
+    },
+    {
+      "doc_id": "10_cross_validation.md",
+      "title": "Train, Validation, Test and Cross-Validation",
+      "topic": "Machine Learning"
+    },
+    {
+      "doc_id": "11_overfitting_regularisation.md",
+      "title": "Overfitting and Regularisation",
+      "topic": "Machine Learning"
+    },
+    {
+      "doc_id": "12_neural_networks.md",
+      "title": "Neural Networks",
+      "topic": "Deep Learning"
+    },
+    {
+      "doc_id": "13_keras_tensorflow.md",
+      "title": "Building Models with Keras",
+      "topic": "Deep Learning"
+    },
+    {
+      "doc_id": "14_nlp_fundamentals.md",
+      "title": "NLP Fundamentals",
+      "topic": "NLP & GenAI"
+    },
+    {
+      "doc_id": "15_transformers_attention.md",
+      "title": "Transformers and Attention",
+      "topic": "NLP & GenAI"
+    },
+    {
+      "doc_id": "16_large_language_models.md",
+      "title": "Large Language Models",
+      "topic": "NLP & GenAI"
+    },
+    {
+      "doc_id": "17_prompt_engineering.md",
+      "title": "Prompt Engineering",
+      "topic": "NLP & GenAI"
+    },
+    {
+      "doc_id": "18_embeddings_vector_search.md",
+      "title": "Embeddings and Vector Search",
+      "topic": "NLP & GenAI"
+    },
+    {
+      "doc_id": "19_retrieval_augmented_generation.md",
+      "title": "Retrieval-Augmented Generation (RAG)",
+      "topic": "NLP & GenAI"
+    },
+    {
+      "doc_id": "20_deployment_basics.md",
+      "title": "Deployment Basics",
+      "topic": "Deployment"
+    }
+  ],
+  "metrics_held_out": {
+    "hit@1": 0.733,
+    "hit@3": 0.933,
+    "MRR": 0.844
+  },
+  "metrics_all_methods": [
+    {
+      "method": "keyword",
+      "held-out hit@1": 0.733,
+      "held-out hit@3": 1.0,
+      "held-out MRR": 0.833,
+      "all-30 hit@1": 0.567,
+      "all-30 hit@3": 0.9,
+      "all-30 MRR": 0.716
+    },
+    {
+      "method": "tfidf",
+      "held-out hit@1": 0.667,
+      "held-out hit@3": 0.933,
+      "held-out MRR": 0.806,
+      "all-30 hit@1": 0.6,
+      "all-30 hit@3": 0.933,
+      "all-30 MRR": 0.772
+    },
+    {
+      "method": "lsa",
+      "held-out hit@1": 0.733,
+      "held-out hit@3": 0.933,
+      "held-out MRR": 0.844,
+      "all-30 hit@1": 0.733,
+      "all-30 hit@3": 0.933,
+      "all-30 MRR": 0.84
+    }
+  ]
+}

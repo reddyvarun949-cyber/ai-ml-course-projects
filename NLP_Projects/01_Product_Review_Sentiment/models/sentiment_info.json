@@ -1,0 +1,33 @@
+{
+  "model_name": "Logistic Regression + TF-IDF word 1-2 grams",
+  "labels": [
+    "negative",
+    "neutral",
+    "positive"
+  ],
+  "C": 0.5,
+  "vocabulary_size": 2260,
+  "cv_macro_f1": 0.862,
+  "test_metrics": {
+    "macro_f1": 0.878,
+    "accuracy": 0.889,
+    "per_class_f1": {
+      "negative": 0.912,
+      "neutral": 0.808,
+      "positive": 0.913
+    }
+  },
+  "baseline_test_macro_f1": 0.219,
+  "low_confidence_below": 0.5,
+  "max_chars": 2000,
+  "max_batch": 50,
+  "train_rows": 3172,
+  "examples": [
+    "The battery lasts all day and the camera takes lovely photos. Highly recommend it!",
+    "Not bad at all. The fabric is soft and comfortable.",
+    "It's okay. The size is smaller than I thought.",
+    "Great screen but the battery dies fast.",
+    "Stopped working after a week. Not worth the money.",
+    "Bekaar product, paisa barbaad 👎"
+  ]
+}
